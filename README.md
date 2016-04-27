@@ -1,6 +1,6 @@
 # 🔮 Sourcery
 
-[![Travis](https://img.shields.io/travis/nodes-ios/Serializable.svg)](https://travis-ci.org/nodes-ios/Sourcery)
+[![Travis](https://img.shields.io/travis/nodes-ios/Sourcery.svg)](https://travis-ci.org/nodes-ios/Sourcery)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/nodes-ios/Sourcery/blob/master/LICENSE)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 ![Plaform](https://img.shields.io/badge/platform-iOS-lightgrey.svg)
