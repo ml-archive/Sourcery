@@ -204,9 +204,13 @@ public class PagedSourcery<DataType, CellType: TableViewPresentable>: NSObject, 
 
             // Refresh visible rows in tableview if needed
             if needsReload {
-                weakSelf.tableView?.reloadData()
+                dispatch_async(dispatch_get_main_queue(), { 
+                    weakSelf.tableView?.reloadData()
+                })
             } else if let indexes = weakSelf.data?.indexes(page), indexPathsToReload = weakSelf.visibleIndexPathsForIndexes(indexes) {
-                weakSelf.tableView?.reloadRowsAtIndexPaths(indexPathsToReload, withRowAnimation: .Automatic)
+                dispatch_async(dispatch_get_main_queue(), {
+                    weakSelf.tableView?.reloadRowsAtIndexPaths(indexPathsToReload, withRowAnimation: .Automatic)
+                })
             }
         }
     }
