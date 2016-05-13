@@ -148,7 +148,7 @@ public class PagedSourcery<DataType, CellType: TableViewPresentable>: NSObject, 
 
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // Dequeue or register the cell
-        let cell = tableView.dequeueCellType(CellType)
+        let cell: CellType = tableView.dequeueCellType(CellType)
 
         // Load data, if the data for current row is not available
         loadDataIfNeededForRow(indexPath.row)

@@ -61,7 +61,7 @@ public class SimpleSourcery<DataType, CellType: TableViewPresentable>: NSObject,
 
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // Dequeue or register the cell
-        let cell = tableView.dequeueCellType(CellType)
+        let cell: CellType = tableView.dequeueCellType(CellType)
 
         // Configure it using the configurator
         configurator?(cell: cell, index: indexPath.row, object: data[indexPath.row])

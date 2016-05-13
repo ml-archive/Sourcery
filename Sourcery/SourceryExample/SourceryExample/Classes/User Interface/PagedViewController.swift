@@ -26,13 +26,23 @@ class PagedViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        setupSourcery()
+    }
+
+    func setupSourcery() {
         let totalCount = data.reduce(0, combine: { $0.0 + $0.1.count })
 
         sourcery = PagedSourcery<String, BasicCell>(tableView: tableView, pageSize: 3, pageLoader: { (page, operationQueue, completion) in
             operationQueue.addOperationWithBlock({
-                completion(totalCount: totalCount, data: self.data[page])
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
+                    completion(totalCount: totalCount, data: self.data[page])
+                })
             })
             }, configurator: { $0.cell.textLabel?.text = $0.object })
+        sourcery?.preloadMargin = nil
     }
 }

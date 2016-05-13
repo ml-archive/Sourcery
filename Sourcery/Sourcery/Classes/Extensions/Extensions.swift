@@ -22,7 +22,7 @@ public extension UITableView {
         self.registerNib(cellType.nib, forCellReuseIdentifier: cellType.reuseIdentifier)
     }
 
-    public func registerCellTypes<T where T: TableViewPresentable>(cellTypes: [T.Type]) {
+    public func registerCellTypes(cellTypes: [TableViewPresentable.Type]) {
         for cell in cellTypes {
             registerCellType(cell)
         }
@@ -44,8 +44,8 @@ public extension UITableView {
         return cell
     }
 
-    public func dequeueCellType<T where T: TableViewPresentable>(cellType: T.Type) -> T {
-        var requestedCell = self.dequeueReusableCellWithIdentifier(T.reuseIdentifier) as? T
+    public func dequeueCellType<T where T: TableViewPresentable>(cellType: TableViewPresentable.Type) -> T {
+        var requestedCell = self.dequeueReusableCellWithIdentifier(cellType.reuseIdentifier) as? T
         requestedCell     = requestedCell ?? registerAndDequeueCell(cellType) as? T
 
         // This 'should never happen'

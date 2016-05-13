@@ -13,6 +13,12 @@ class BasicCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        textLabel?.text = "Loading..."
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        textLabel?.text = "Loading..."
     }
 
 }
