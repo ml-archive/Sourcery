@@ -15,11 +15,19 @@ public extension UITableView {
     // MARK: Register
 
     public func registerCellType(cellType: TableViewPresentable.Type) {
-        self.registerNib(cellType.nib, forCellReuseIdentifier: cellType.reuseIdentifier)
+        if cellType.loadsFromNib {
+            self.registerNib(cellType.nib, forCellReuseIdentifier: cellType.reuseIdentifier)
+        } else {
+            self.registerClass(cellType, forCellReuseIdentifier: cellType.reuseIdentifier)
+        }
     }
 
     public func registerCellType<T where T: TableViewPresentable>(cellType: T.Type) {
-        self.registerNib(cellType.nib, forCellReuseIdentifier: cellType.reuseIdentifier)
+        if cellType.loadsFromNib {
+            self.registerNib(cellType.nib, forCellReuseIdentifier: cellType.reuseIdentifier)
+        } else {
+            self.registerClass(cellType, forCellReuseIdentifier: cellType.reuseIdentifier)
+        }
     }
 
     public func registerCellTypes(cellTypes: [TableViewPresentable.Type]) {
