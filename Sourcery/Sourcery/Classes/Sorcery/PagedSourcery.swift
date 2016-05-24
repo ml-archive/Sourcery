@@ -82,6 +82,10 @@ public class PagedSourcery<DataType, CellType: TableViewPresentable>: NSObject, 
         startLoadingPages()
     }
 
+    deinit {
+        resetAndStopLoading()
+    }
+
     // MARK: - Page Control -
 
     /**
