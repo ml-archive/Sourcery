@@ -19,7 +19,7 @@ public protocol TableViewPresentable: NibInstantiable {
 
 public extension TableViewPresentable {
     public static var nib: UINib {
-        return UINib(nibName: reuseIdentifier, bundle: nil)
+        return UINib(nibName: String(self), bundle: nil)
     }
 
     public static func newFromNib<T>() -> T {
