@@ -44,6 +44,13 @@ public class SimpleSourcery<DataType, CellType: TableViewPresentable>: NSObject,
         self.tableView?.reloadData()
     }
 
+    // MARK: - Update Data -
+
+    public func updateData(newData newData: [DataType]) {
+        data = newData
+        tableView?.reloadData()
+    }
+
     // MARK: - UITableView Data Source & Delegate -
 
     public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
