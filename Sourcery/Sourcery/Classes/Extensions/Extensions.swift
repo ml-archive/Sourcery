@@ -72,8 +72,59 @@ public extension UITableView {
 
     // MARK: Header & Footer
 
-    public func registerHeaderFooterView<T where T: TableViewPresentable>(view: T.Type) {
-        self.registerNib(view.nib, forHeaderFooterViewReuseIdentifier: view.reuseIdentifier)
+    public func registerHeaderFooterView(viewType: TableViewPresentable.Type) {
+        if viewType.loadsFromNib {
+            self.registerNib(viewType.nib, forHeaderFooterViewReuseIdentifier: viewType.reuseIdentifier)
+        } else {
+            self.registerClass(viewType, forHeaderFooterViewReuseIdentifier: viewType.reuseIdentifier)
+        }
     }
 
+    public func registerHeaderFooterView<T where T: TableViewPresentable>(viewType: T.Type) {
+        if viewType.loadsFromNib {
+            self.registerNib(viewType.nib, forHeaderFooterViewReuseIdentifier: viewType.reuseIdentifier)
+        } else {
+            self.registerClass(viewType, forHeaderFooterViewReuseIdentifier: viewType.reuseIdentifier)
+        }
+    }
+
+    public func registerAndDequeueHeaderFooterView(viewType: TableViewPresentable.Type) -> UITableViewHeaderFooterView? {
+        // First register
+        registerHeaderFooterView(viewType)
+
+        // Try to get cell or fail miserably
+        guard let view = self.dequeueReusableHeaderFooterViewWithIdentifier(viewType.reuseIdentifier) else {
+            fatalError("Header/Footer view registration and dequeue failed. Please check that " +
+                "your NIB file exists or your class is available and set up correctly.")
+        }
+
+        // Return cell
+        return view
+    }
+
+    public func dequeueHeaderFooterView<T where T: TableViewPresentable>(viewType: T.Type) -> T {
+        var requestedView = self.dequeueReusableHeaderFooterViewWithIdentifier(viewType.reuseIdentifier) as? T
+        requestedView     = requestedView ?? registerAndDequeueHeaderFooterView(viewType) as? T
+
+        // This 'should never happen'
+        guard let view = requestedView else {
+            fatalError("Internatl inconsistency error. If you got this far," +
+                " there is something seriously wrong with Swift.")
+        }
+
+        return view
+    }
+
+    public func dequeueHeaderFooterView(viewType: TableViewPresentable.Type) -> UITableViewHeaderFooterView? {
+        var requestedView = self.dequeueReusableHeaderFooterViewWithIdentifier(viewType.reuseIdentifier)
+        requestedView     = requestedView ?? registerAndDequeueHeaderFooterView(viewType)
+
+        // This 'should never happen'
+        guard let view = requestedView else {
+            fatalError("Internatl inconsistency error. If you got this far," +
+                " there is something seriously wrong with Swift.")
+        }
+
+        return view
+    }
 }

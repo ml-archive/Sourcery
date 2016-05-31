@@ -16,6 +16,7 @@ public protocol SectionType {
     var title: String? { get }
 
     var customConstructors: [Int: CellConstructor] { get set }
+    var headerType: TableViewPresentable.Type? { get set }
 
     func heightForCellAtIndex(index: Int) -> CGFloat
     func configureCell(cell: UITableViewCell, index: Int)

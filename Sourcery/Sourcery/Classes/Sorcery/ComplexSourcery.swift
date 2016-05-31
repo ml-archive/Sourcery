@@ -10,6 +10,8 @@ import UIKit
 
 public class ComplexSourcery: NSObject, TableController {
 
+    public typealias HeaderConfigurator = ((header: UITableViewHeaderFooterView?, title: String?) -> Void)
+
     public private(set) weak var tableView: UITableView?
 
     /// Setting a custom height will override the height of all cells to the value specified.
@@ -17,7 +19,7 @@ public class ComplexSourcery: NSObject, TableController {
     var autoDeselect = true
 
     /// TODO: Documentation
-    var sections: [SectionType] {
+    public private(set) var sections: [SectionType] {
         didSet {
             tableView?.reloadData()
         }
@@ -26,20 +28,31 @@ public class ComplexSourcery: NSObject, TableController {
     /// TODO: Documentation
     var headerHeight: CGFloat = 32.0
 
+    /// TODO: Documentation
+    private var headerConfigurator: HeaderConfigurator?
+
     // MARK: - Init -
 
     private override init() {
         fatalError("Never instantiate this class directly. Use the init(tableView:sections:) initializer.")
     }
 
-    public required init(tableView: UITableView, sections: [SectionType]) {
+    public required init(tableView: UITableView, sections: [SectionType], headerConfigurator: HeaderConfigurator? = nil) {
         self.tableView = tableView
         self.sections = sections
+        self.headerConfigurator = headerConfigurator
         super.init()
 
         self.tableView?.dataSource = self
         self.tableView?.delegate = self
         self.tableView?.reloadData()
+    }
+
+    // MARK: - Update Data -
+
+    public func updateSections(newSections newSections: [SectionType]) {
+        sections = newSections
+        tableView?.reloadData()
     }
 
     // MARK: - UITableView Data Source & Delegate -
@@ -61,11 +74,24 @@ public class ComplexSourcery: NSObject, TableController {
     }
 
     public func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return sections[section].title != nil ? headerHeight : 0
+        // If we have a header, return its height
+        return sections[section].headerType?.staticHeight ?? (sections[section].title != nil ? headerHeight : 0)
     }
 
     public func tableView(tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-        return sections[section].title != nil ? headerHeight : 0
+        // If we have a header, return its height
+        return sections[section].headerType?.staticHeight ?? (sections[section].title != nil ? headerHeight : 0)
+    }
+
+    public func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        // If a header is specified - dequeue, configure and return it
+        if let type = sections[section].headerType {
+            let header = tableView.dequeueHeaderFooterView(type)
+            headerConfigurator?(header: header, title: sections[section].title)
+            return header
+        }
+
+        return nil
     }
 
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

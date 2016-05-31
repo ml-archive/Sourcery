@@ -20,6 +20,8 @@
 		0110BC371CD3A1A1002A9966 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0110BC291CD3A1A1002A9966 /* Assets.xcassets */; };
 		0110BC381CD3A1A1002A9966 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0110BC2B1CD3A1A1002A9966 /* LaunchScreen.storyboard */; };
 		0110BC391CD3A1A1002A9966 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0110BC2C1CD3A1A1002A9966 /* Main.storyboard */; };
+		015DC9971CFD7C8A00F1AD22 /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015DC9961CFD7C8A00F1AD22 /* CustomHeaderView.swift */; };
+		015DC9991CFD7CB100F1AD22 /* CustomHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 015DC9981CFD7CB100F1AD22 /* CustomHeaderView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,8 @@
 		0110BC2B1CD3A1A1002A9966 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0110BC2C1CD3A1A1002A9966 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		0110BC2E1CD3A1A1002A9966 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		015DC9961CFD7C8A00F1AD22 /* CustomHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
+		015DC9981CFD7CB100F1AD22 /* CustomHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomHeaderView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +157,8 @@
 				0110BC221CD3A1A1002A9966 /* BasicCell.xib */,
 				0110BC231CD3A1A1002A9966 /* ColorCell.swift */,
 				0110BC241CD3A1A1002A9966 /* ColorCell.xib */,
+				015DC9961CFD7C8A00F1AD22 /* CustomHeaderView.swift */,
+				015DC9981CFD7CB100F1AD22 /* CustomHeaderView.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -223,8 +229,6 @@
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
-			knownRegions = (
-			);
 			mainGroup = 0110BBE31CD38972002A9966;
 			productRefGroup = 0110BBED1CD38972002A9966 /* Products */;
 			projectDirPath = "";
@@ -267,6 +271,7 @@
 				0110BC391CD3A1A1002A9966 /* Main.storyboard in Resources */,
 				0110BC381CD3A1A1002A9966 /* LaunchScreen.storyboard in Resources */,
 				0110BC371CD3A1A1002A9966 /* Assets.xcassets in Resources */,
+				015DC9991CFD7CB100F1AD22 /* CustomHeaderView.xib in Resources */,
 				0110BC331CD3A1A1002A9966 /* ColorCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -279,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0110BC351CD3A1A1002A9966 /* PagedViewController.swift in Sources */,
+				015DC9971CFD7C8A00F1AD22 /* CustomHeaderView.swift in Sources */,
 				0110BC301CD3A1A1002A9966 /* BasicCell.swift in Sources */,
 				0110BC361CD3A1A1002A9966 /* SimpleViewController.swift in Sources */,
 				0110BC341CD3A1A1002A9966 /* ComplexViewController.swift in Sources */,
@@ -424,6 +430,7 @@
 				0110BC001CD38972002A9966 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

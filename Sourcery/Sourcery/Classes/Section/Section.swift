@@ -23,6 +23,8 @@ public struct Section<DataType, CellType: TableViewPresentable>: SectionType {
 
     public var customConstructors: [Int: CellConstructor] = [:]
 
+    public var headerType: TableViewPresentable.Type?
+
     public var dataCount: Int {
         return data.count
     }
@@ -31,12 +33,13 @@ public struct Section<DataType, CellType: TableViewPresentable>: SectionType {
         return CellType.self
     }
 
-    public init(title: String?, data: [DataType], configurator: CellConfigurator?, selectionHandler: SelectionHandler?, heightConfigurator: HeightConfigurator? = nil) {
+    public init(title: String?, data: [DataType], configurator: CellConfigurator?, selectionHandler: SelectionHandler?, heightConfigurator: HeightConfigurator? = nil, headerType: TableViewPresentable.Type? = nil) {
         self.data = data
         self.selectionHandler = selectionHandler
         self.configurator = configurator
         self.title = title
         self.heightConfigurator = heightConfigurator
+        self.headerType = headerType
     }
 
     public func configureCell(cell: UITableViewCell, index: Int) {
