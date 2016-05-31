@@ -10,7 +10,7 @@ import UIKit
 
 public class ComplexSourcery: NSObject, TableController {
 
-    public typealias HeaderConfigurator = ((header: UITableViewHeaderFooterView?, title: String?) -> Void)
+    public typealias HeaderConfigurator = ((section: Int, header: UITableViewHeaderFooterView?, title: String?) -> Void)
 
     public private(set) weak var tableView: UITableView?
 
@@ -87,7 +87,7 @@ public class ComplexSourcery: NSObject, TableController {
         // If a header is specified - dequeue, configure and return it
         if let type = sections[section].headerType {
             let header = tableView.dequeueHeaderFooterView(type)
-            headerConfigurator?(header: header, title: sections[section].title)
+            headerConfigurator?(section: section, header: header, title: sections[section].title)
             return header
         }
 

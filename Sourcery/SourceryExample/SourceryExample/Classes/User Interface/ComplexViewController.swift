@@ -25,7 +25,7 @@ class ComplexViewController: UIViewController {
         let textSection = Section<String, BasicCell>(title: nil, data: data.texts, configurator: { $0.cell.textLabel?.text = $0.object }, selectionHandler: nil)
         let colorSection = Section<UIColor, ColorCell>(title: "Colors", data: data.colors, configurator: { $0.cell.populateWithColor($0.object) }, selectionHandler: nil, headerType: CustomHeaderView.self)
 
-        sourcery = ComplexSourcery(tableView: tableView, sections: [textSection, colorSection], headerConfigurator: { header, title in
+        sourcery = ComplexSourcery(tableView: tableView, sections: [textSection, colorSection], headerConfigurator: { section, header, title in
             if let header = header as? CustomHeaderView {
                 header.customTitleLabel.text = title
             }
