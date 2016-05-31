@@ -80,14 +80,6 @@ public extension UITableView {
         }
     }
 
-    public func registerHeaderFooterView<T where T: TableViewPresentable>(viewType: T.Type) {
-        if viewType.loadsFromNib {
-            self.registerNib(viewType.nib, forHeaderFooterViewReuseIdentifier: viewType.reuseIdentifier)
-        } else {
-            self.registerClass(viewType, forHeaderFooterViewReuseIdentifier: viewType.reuseIdentifier)
-        }
-    }
-
     public func registerAndDequeueHeaderFooterView(viewType: TableViewPresentable.Type) -> UITableViewHeaderFooterView? {
         // First register
         registerHeaderFooterView(viewType)
@@ -99,19 +91,6 @@ public extension UITableView {
         }
 
         // Return cell
-        return view
-    }
-
-    public func dequeueHeaderFooterView<T where T: TableViewPresentable>(viewType: T.Type) -> T {
-        var requestedView = self.dequeueReusableHeaderFooterViewWithIdentifier(viewType.reuseIdentifier) as? T
-        requestedView     = requestedView ?? registerAndDequeueHeaderFooterView(viewType) as? T
-
-        // This 'should never happen'
-        guard let view = requestedView else {
-            fatalError("Internatl inconsistency error. If you got this far," +
-                " there is something seriously wrong with Swift.")
-        }
-
         return view
     }
 
