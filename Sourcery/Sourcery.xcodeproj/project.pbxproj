@@ -170,8 +170,7 @@
 				01DAF18D1CD0E355003F7B1B /* PagedSourcery.swift */,
 				01DAF18C1CD0E355003F7B1B /* ComplexSourcery.swift */,
 			);
-			name = Sourcery;
-			path = Sorcery;
+			path = Sourcery;
 			sourceTree = "<group>";
 		};
 		01DAF1921CD0E392003F7B1B /* Section */ = {
