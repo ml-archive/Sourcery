@@ -55,6 +55,9 @@ public class PagedSourcery<DataType, CellType: TableViewPresentable>: NSObject, 
     /// If the value is nil, the `staticHeight` property of each cell will be used instead.
     public var customHeight: CGFloat?
 
+    /// If set, then some UITableView delegate methods will be sent to it.
+    public var delegateProxy: TableViewDelegateProxy?
+
     /// TODO: Documentation
     public var headerType: TableViewPresentable.Type?
 
@@ -174,6 +177,10 @@ public class PagedSourcery<DataType, CellType: TableViewPresentable>: NSObject, 
         if let object = data?[indexPath.row] {
             selectionHandler?(index: indexPath.row, object: object)
         }
+    }
+
+    public func scrollViewDidScroll(scrollView: UIScrollView) {
+        delegateProxy?.scrollViewDidScroll(scrollView)
     }
 
     // MARK: - Pagination -

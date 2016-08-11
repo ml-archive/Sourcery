@@ -26,6 +26,9 @@ public class SimpleSourcery<DataType, CellType: TableViewPresentable>: NSObject,
     /// If the value is nil, the `staticHeight` property of each cell will be used instead.
     public var customHeight: CGFloat?
 
+    /// If set, then some UITableView delegate methods will be sent to it.
+    public var delegateProxy: TableViewDelegateProxy?
+
     // MARK: - Init -
 
     private override init() {
@@ -83,5 +86,9 @@ public class SimpleSourcery<DataType, CellType: TableViewPresentable>: NSObject,
 
         // Call the selection handler
         selectionHandler?(index: indexPath.row, object: data[indexPath.row])
+    }
+
+    public func scrollViewDidScroll(scrollView: UIScrollView) {
+        delegateProxy?.scrollViewDidScroll(scrollView)
     }
 }

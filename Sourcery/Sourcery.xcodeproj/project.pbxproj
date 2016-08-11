@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		018399D21D5CCBF2007E98F5 /* TableViewDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018399D11D5CCBF2007E98F5 /* TableViewDelegateProxy.swift */; };
 		01DAF1431CCFB138003F7B1B /* Sourcery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01DAF1381CCFB138003F7B1B /* Sourcery.framework */; };
 		01DAF1561CCFB148003F7B1B /* Sorcery.h in Headers */ = {isa = PBXBuildFile; fileRef = 01DAF1541CCFB148003F7B1B /* Sorcery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01DAF15D1CCFB171003F7B1B /* SorceryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DAF15B1CCFB171003F7B1B /* SorceryTests.swift */; };
@@ -16,7 +17,6 @@
 		01DAF1941CD0E3F2003F7B1B /* TableViewPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DAF1931CD0E3F2003F7B1B /* TableViewPresentable.swift */; };
 		01DAF1961CD0E3F9003F7B1B /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DAF1951CD0E3F8003F7B1B /* Section.swift */; };
 		01DAF1981CD0E579003F7B1B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DAF1971CD0E579003F7B1B /* Extensions.swift */; };
-		01DAF19A1CD0E5C0003F7B1B /* PagedSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DAF1991CD0E5C0003F7B1B /* PagedSection.swift */; };
 		01DAF19C1CD0E5CA003F7B1B /* SectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DAF19B1CD0E5CA003F7B1B /* SectionType.swift */; };
 		01DAF19F1CD0E6DE003F7B1B /* PagedArray.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01DAF19E1CD0E6DE003F7B1B /* PagedArray.framework */; };
 		01DAF1A11CD0E78B003F7B1B /* NibInstantiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DAF1A01CD0E78B003F7B1B /* NibInstantiable.swift */; };
@@ -33,6 +33,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		018399D11D5CCBF2007E98F5 /* TableViewDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDelegateProxy.swift; sourceTree = "<group>"; };
 		01DAF1381CCFB138003F7B1B /* Sourcery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Sourcery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		01DAF1421CCFB138003F7B1B /* SourceryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SourceryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		01DAF1531CCFB148003F7B1B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -45,7 +46,6 @@
 		01DAF1931CD0E3F2003F7B1B /* TableViewPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewPresentable.swift; sourceTree = "<group>"; };
 		01DAF1951CD0E3F8003F7B1B /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		01DAF1971CD0E579003F7B1B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		01DAF1991CD0E5C0003F7B1B /* PagedSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagedSection.swift; sourceTree = "<group>"; };
 		01DAF19B1CD0E5CA003F7B1B /* SectionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionType.swift; sourceTree = "<group>"; };
 		01DAF19E1CD0E6DE003F7B1B /* PagedArray.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PagedArray.framework; path = ../Carthage/Build/iOS/PagedArray.framework; sourceTree = "<group>"; };
 		01DAF1A01CD0E78B003F7B1B /* NibInstantiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibInstantiable.swift; sourceTree = "<group>"; };
@@ -159,6 +159,7 @@
 				01DAF1931CD0E3F2003F7B1B /* TableViewPresentable.swift */,
 				01DAF19B1CD0E5CA003F7B1B /* SectionType.swift */,
 				01DAF1A01CD0E78B003F7B1B /* NibInstantiable.swift */,
+				018399D11D5CCBF2007E98F5 /* TableViewDelegateProxy.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -177,7 +178,6 @@
 			isa = PBXGroup;
 			children = (
 				01DAF1951CD0E3F8003F7B1B /* Section.swift */,
-				01DAF1991CD0E5C0003F7B1B /* PagedSection.swift */,
 			);
 			path = Section;
 			sourceTree = "<group>";
@@ -299,11 +299,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				01DAF1961CD0E3F9003F7B1B /* Section.swift in Sources */,
+				018399D21D5CCBF2007E98F5 /* TableViewDelegateProxy.swift in Sources */,
 				01DAF1981CD0E579003F7B1B /* Extensions.swift in Sources */,
 				01DAF1901CD0E355003F7B1B /* PagedSourcery.swift in Sources */,
 				01DAF19C1CD0E5CA003F7B1B /* SectionType.swift in Sources */,
 				01DAF1911CD0E355003F7B1B /* SimpleSourcery.swift in Sources */,
-				01DAF19A1CD0E5C0003F7B1B /* PagedSection.swift in Sources */,
 				01DAF18F1CD0E355003F7B1B /* ComplexSourcery.swift in Sources */,
 				01DAF1A11CD0E78B003F7B1B /* NibInstantiable.swift in Sources */,
 				01DAF1941CD0E3F2003F7B1B /* TableViewPresentable.swift in Sources */,

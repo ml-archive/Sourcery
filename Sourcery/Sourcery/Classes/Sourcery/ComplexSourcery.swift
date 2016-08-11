@@ -31,6 +31,9 @@ public class ComplexSourcery: NSObject, TableController {
     /// TODO: Documentation
     private var headerConfigurator: HeaderConfigurator?
 
+    /// If set, then some UITableView delegate methods will be sent to it.
+    public var delegateProxy: TableViewDelegateProxy?
+
     // MARK: - Init -
 
     private override init() {
@@ -108,5 +111,9 @@ public class ComplexSourcery: NSObject, TableController {
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if autoDeselect { tableView.deselectRowAtIndexPath(indexPath, animated: true) }
         sections[indexPath.section].handleSelection(indexPath.row)
+    }
+
+    public func scrollViewDidScroll(scrollView: UIScrollView) {
+        delegateProxy?.scrollViewDidScroll(scrollView)
     }
 }
