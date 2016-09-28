@@ -1,1 +1,1 @@
-github "MrAlek/PagedArray" >= 0.3
+github "MrAlek/PagedArray" "swift2.3"
