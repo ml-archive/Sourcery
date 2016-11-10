@@ -8,7 +8,7 @@
 
 import UIKit
 
-public typealias TableController = protocol<UITableViewDataSource, UITableViewDelegate>
+public typealias TableController = UITableViewDataSource & UITableViewDelegate
 
 public protocol TableViewPresentable: NibInstantiable {
     static var nib: UINib { get }
@@ -19,15 +19,15 @@ public protocol TableViewPresentable: NibInstantiable {
 
 public extension TableViewPresentable {
     public static var nib: UINib {
-        return UINib(nibName: String(self), bundle: nil)
+        return UINib(nibName: String(describing: self), bundle: nil)
     }
 
     public static func newFromNib<T>() -> T {
-        return nib.instantiateWithOwner(nil, options: nil).first as! T
+        return nib.instantiate(withOwner: nil, options: nil).first as! T
     }
 
     public static var reuseIdentifier: String {
-        return String(self)
+        return String(describing: self)
     }
 
     public static var loadsFromNib: Bool {

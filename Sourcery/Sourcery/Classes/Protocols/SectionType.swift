@@ -8,7 +8,7 @@
 
 import UIKit
 
-public typealias CellConstructor = ((tableView: UITableView, index: Int) -> UITableViewCell)
+public typealias CellConstructor = ((_ tableView: UITableView, _ index: Int) -> UITableViewCell)
 
 public protocol SectionType {
     var dataCount: Int { get }
@@ -18,7 +18,7 @@ public protocol SectionType {
     var customConstructors: [Int: CellConstructor] { get set }
     var headerType: TableViewPresentable.Type? { get set }
 
-    func heightForCellAtIndex(index: Int) -> CGFloat
-    func configureCell(cell: UITableViewCell, index: Int)
-    func handleSelection(index: Int)
+    func heightForCell(atIndex index: Int) -> CGFloat
+    func configure(cell: UITableViewCell, index: Int)
+    func handle(selection index: Int)
 }

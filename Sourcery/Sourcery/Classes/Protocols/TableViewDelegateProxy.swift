@@ -10,5 +10,5 @@ import Foundation
 import UIKit
 
 public protocol TableViewDelegateProxy: class {
-    func scrollViewDidScroll(scrollView: UIScrollView)
+    func scrollViewDidScroll(_ scrollView: UIScrollView)
 }

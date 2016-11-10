@@ -8,30 +8,30 @@
 
 import UIKit
 
-public class SimpleSourcery<DataType, CellType: TableViewPresentable>: NSObject, TableController {
+open class SimpleSourcery<DataType, CellType: TableViewPresentable>: NSObject, TableController {
 
-    public typealias SelectionHandler = ((index: Int, object: DataType) -> Void)
-    public typealias CellConfigurator = ((cell: CellType, index: Int, object: DataType) -> Void)
+    public typealias SelectionHandler = ((_ index: Int, _ object: DataType) -> Void)
+    public typealias CellConfigurator = ((_ cell: CellType, _ index: Int, _ object: DataType) -> Void)
 
-    public private(set) weak var tableView: UITableView?
-    public private(set) var data = [DataType]()
-    private var selectionHandler: SelectionHandler?
-    private var configurator: CellConfigurator?
+    open fileprivate(set) weak var tableView: UITableView?
+    open fileprivate(set) var data = [DataType]()
+    fileprivate var selectionHandler: SelectionHandler?
+    fileprivate var configurator: CellConfigurator?
 
     /// If enabled, the cell will be automatically deselected (animated) 
     /// after `tableView(_:didSelectRowAtIndexPath:)` is called.
-    public var autoDeselect = true
+    open var autoDeselect = true
 
     /// Setting a custom height will override the height of all cells to the value specified.
     /// If the value is nil, the `staticHeight` property of each cell will be used instead.
-    public var customHeight: CGFloat?
+    open var customHeight: CGFloat?
 
     /// If set, then some UITableView delegate methods will be sent to it.
-    public var delegateProxy: TableViewDelegateProxy?
+    open var delegateProxy: TableViewDelegateProxy?
 
     // MARK: - Init -
 
-    private override init() {
+    fileprivate override init() {
         fatalError("Never instantiate this class directly. Use the init(tableView:data:cellConfigurator:selectionHandler:) initializer.")
     }
 
@@ -49,46 +49,46 @@ public class SimpleSourcery<DataType, CellType: TableViewPresentable>: NSObject,
 
     // MARK: - Update Data -
 
-    public func updateData(newData newData: [DataType]) {
+    open func update(data newData: [DataType]) {
         data = newData
         tableView?.reloadData()
     }
 
     // MARK: - UITableView Data Source & Delegate -
 
-    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    open func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
 
-    public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         // Custom height if defined, otherwise the cell height
         return customHeight ?? CellType.staticHeight
     }
 
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Dequeue or register the cell
-        let cell: CellType = tableView.dequeueCellType(CellType)
+        let cell: CellType = tableView.dequeue(cellType: CellType.self)
 
         // Configure it using the configurator
-        configurator?(cell: cell, index: indexPath.row, object: data[indexPath.row])
+        configurator?(cell, indexPath.row, data[indexPath.row])
 
         // Return as UITableViewCell
         return cell as! UITableViewCell
     }
 
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Deselect row, if auto deselect enabled
-        if autoDeselect { tableView.deselectRowAtIndexPath(indexPath, animated: true) }
+        if autoDeselect { tableView.deselectRow(at: indexPath, animated: true) }
 
         // Call the selection handler
-        selectionHandler?(index: indexPath.row, object: data[indexPath.row])
+        selectionHandler?(indexPath.row, data[indexPath.row])
     }
 
-    public func scrollViewDidScroll(scrollView: UIScrollView) {
+    open func scrollViewDidScroll(_ scrollView: UIScrollView) {
         delegateProxy?.scrollViewDidScroll(scrollView)
     }
 }

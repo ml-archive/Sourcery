@@ -10,16 +10,16 @@ import UIKit
 
 public struct Section<DataType, CellType: TableViewPresentable>: SectionType {
 
-    public typealias SelectionHandler = ((index: Int, object: DataType) -> Void)
-    public typealias CellConfigurator = ((cell: CellType, index: Int, object: DataType) -> Void)
-    public typealias HeightConfigurator = ((index: Int, object: DataType) -> CGFloat)
+    public typealias SelectionHandler = ((_ index: Int, _ object: DataType) -> Void)
+    public typealias CellConfigurator = ((_ cell: CellType, _ index: Int, _ object: DataType) -> Void)
+    public typealias HeightConfigurator = ((_ index: Int, _ object: DataType) -> CGFloat)
 
-    public private(set) var data = [DataType]()
-    private var selectionHandler: SelectionHandler?
-    private var configurator: CellConfigurator?
-    private var heightConfigurator: HeightConfigurator?
+    public fileprivate(set) var data = [DataType]()
+    fileprivate var selectionHandler: SelectionHandler?
+    fileprivate var configurator: CellConfigurator?
+    fileprivate var heightConfigurator: HeightConfigurator?
 
-    public private(set) var title: String?
+    public fileprivate(set) var title: String?
 
     public var customConstructors: [Int: CellConstructor] = [:]
 
@@ -42,15 +42,15 @@ public struct Section<DataType, CellType: TableViewPresentable>: SectionType {
         self.headerType = headerType
     }
 
-    public func configureCell(cell: UITableViewCell, index: Int) {
-        configurator?(cell: cell as! CellType, index: index, object: data[index])
+    public func configure(cell: UITableViewCell, index: Int) {
+        configurator?(cell as! CellType, index, data[index])
     }
 
-    public func handleSelection(index: Int) {
-        selectionHandler?(index: index, object: data[index])
+    public func handle(selection index: Int) {
+        selectionHandler?(index, data[index])
     }
 
-    public func heightForCellAtIndex(index: Int) -> CGFloat {
-        return heightConfigurator?(index: index, object: data[index]) ?? CellType.staticHeight
+    public func heightForCell(atIndex index: Int) -> CGFloat {
+        return heightConfigurator?(index, data[index]) ?? CellType.staticHeight
     }
 }

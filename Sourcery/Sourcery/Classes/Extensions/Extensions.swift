@@ -14,36 +14,36 @@ public extension UITableView {
 
     // MARK: Register
 
-    public func registerCellType(cellType: TableViewPresentable.Type) {
+    public func register(cellType: TableViewPresentable.Type) {
         if cellType.loadsFromNib {
-            self.registerNib(cellType.nib, forCellReuseIdentifier: cellType.reuseIdentifier)
+            self.register(cellType.nib, forCellReuseIdentifier: cellType.reuseIdentifier)
         } else {
-            self.registerClass(cellType, forCellReuseIdentifier: cellType.reuseIdentifier)
+            self.register(cellType, forCellReuseIdentifier: cellType.reuseIdentifier)
         }
     }
 
-    public func registerCellType<T where T: TableViewPresentable>(cellType: T.Type) {
+    public func register<T>(cellType: T.Type) where T: TableViewPresentable {
         if cellType.loadsFromNib {
-            self.registerNib(cellType.nib, forCellReuseIdentifier: cellType.reuseIdentifier)
+            self.register(cellType.nib, forCellReuseIdentifier: cellType.reuseIdentifier)
         } else {
-            self.registerClass(cellType, forCellReuseIdentifier: cellType.reuseIdentifier)
+            self.register(cellType, forCellReuseIdentifier: cellType.reuseIdentifier)
         }
     }
 
-    public func registerCellTypes(cellTypes: [TableViewPresentable.Type]) {
+    public func register(cellTypes: [TableViewPresentable.Type]) {
         for cell in cellTypes {
-            registerCellType(cell)
+            register(cellType: cell)
         }
     }
 
     // MARK: Dequeue
 
-    public func registerAndDequeueCell(cellType: TableViewPresentable.Type) -> UITableViewCell {
+    public func registerAndDequeueCell(withCellType cellType: TableViewPresentable.Type) -> UITableViewCell {
         // First register
-        registerCellType(cellType)
+        register(cellType: cellType)
 
         // Try to get cell or fail miserably
-        guard let cell = self.dequeueReusableCellWithIdentifier(cellType.reuseIdentifier) else {
+        guard let cell = self.dequeueReusableCell(withIdentifier: cellType.reuseIdentifier) else {
             fatalError("Cell registration and dequeue failed. Please check that " +
                        "your NIB file exists or your class is available and set up correctly.")
         }
@@ -52,9 +52,9 @@ public extension UITableView {
         return cell
     }
 
-    public func dequeueCellType<T where T: TableViewPresentable>(cellType: TableViewPresentable.Type) -> T {
-        var requestedCell = self.dequeueReusableCellWithIdentifier(cellType.reuseIdentifier) as? T
-        requestedCell     = requestedCell ?? registerAndDequeueCell(cellType) as? T
+    public func dequeue<T>(cellType: TableViewPresentable.Type) -> T where T: TableViewPresentable {
+        var requestedCell = self.dequeueReusableCell(withIdentifier: cellType.reuseIdentifier) as? T
+        requestedCell     = requestedCell ?? registerAndDequeueCell(withCellType: cellType) as? T
 
         // This 'should never happen'
         guard let cell = requestedCell else {
@@ -65,27 +65,27 @@ public extension UITableView {
         return cell
     }
 
-    public func dequeueCellTypeDefault(cellType: TableViewPresentable.Type) -> UITableViewCell {
-        let cell = self.dequeueReusableCellWithIdentifier(cellType.reuseIdentifier)
-        return cell ?? registerAndDequeueCell(cellType)
+    public func dequeueDefault(cellType: TableViewPresentable.Type) -> UITableViewCell {
+        let cell = self.dequeueReusableCell(withIdentifier: cellType.reuseIdentifier)
+        return cell ?? registerAndDequeueCell(withCellType: cellType)
     }
 
     // MARK: Header & Footer
 
     public func registerHeaderFooterView(viewType: TableViewPresentable.Type) {
         if viewType.loadsFromNib {
-            self.registerNib(viewType.nib, forHeaderFooterViewReuseIdentifier: viewType.reuseIdentifier)
+            self.register(viewType.nib, forHeaderFooterViewReuseIdentifier: viewType.reuseIdentifier)
         } else {
-            self.registerClass(viewType, forHeaderFooterViewReuseIdentifier: viewType.reuseIdentifier)
+            self.register(viewType, forHeaderFooterViewReuseIdentifier: viewType.reuseIdentifier)
         }
     }
 
     public func registerAndDequeueHeaderFooterView(viewType: TableViewPresentable.Type) -> UITableViewHeaderFooterView? {
         // First register
-        registerHeaderFooterView(viewType)
+        registerHeaderFooterView(viewType: viewType)
 
         // Try to get cell or fail miserably
-        guard let view = self.dequeueReusableHeaderFooterViewWithIdentifier(viewType.reuseIdentifier) else {
+        guard let view = self.dequeueReusableHeaderFooterView(withIdentifier: viewType.reuseIdentifier) else {
             fatalError("Header/Footer view registration and dequeue failed. Please check that " +
                 "your NIB file exists or your class is available and set up correctly.")
         }
@@ -94,9 +94,9 @@ public extension UITableView {
         return view
     }
 
-    public func dequeueHeaderFooterView(viewType: TableViewPresentable.Type) -> UITableViewHeaderFooterView? {
-        var requestedView = self.dequeueReusableHeaderFooterViewWithIdentifier(viewType.reuseIdentifier)
-        requestedView     = requestedView ?? registerAndDequeueHeaderFooterView(viewType)
+    public func dequeueHeaderFooterView(_ viewType: TableViewPresentable.Type) -> UITableViewHeaderFooterView? {
+        var requestedView = self.dequeueReusableHeaderFooterView(withIdentifier: viewType.reuseIdentifier)
+        requestedView     = requestedView ?? registerAndDequeueHeaderFooterView(viewType: viewType)
 
         // This 'should never happen'
         guard let view = requestedView else {

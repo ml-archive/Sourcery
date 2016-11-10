@@ -8,18 +8,18 @@
 
 import UIKit
 
-public class ComplexSourcery: NSObject, TableController {
+open class ComplexSourcery: NSObject, TableController {
 
-    public typealias HeaderConfigurator = ((section: Int, header: UITableViewHeaderFooterView?, title: String?) -> Void)
+    public typealias HeaderConfigurator = ((_ section: Int, _ header: UITableViewHeaderFooterView?, _ title: String?) -> Void)
 
-    public private(set) weak var tableView: UITableView?
+    open fileprivate(set) weak var tableView: UITableView?
 
     /// Setting a custom height will override the height of all cells to the value specified.
     /// If the value is nil, the `staticHeight` property of each cell will be used instead.
     var autoDeselect = true
 
     /// TODO: Documentation
-    public private(set) var sections: [SectionType] {
+    open fileprivate(set) var sections: [SectionType] {
         didSet {
             tableView?.reloadData()
         }
@@ -29,14 +29,14 @@ public class ComplexSourcery: NSObject, TableController {
     var headerHeight: CGFloat = 32.0
 
     /// TODO: Documentation
-    private var headerConfigurator: HeaderConfigurator?
+    fileprivate var headerConfigurator: HeaderConfigurator?
 
     /// If set, then some UITableView delegate methods will be sent to it.
-    public var delegateProxy: TableViewDelegateProxy?
+    open var delegateProxy: TableViewDelegateProxy?
 
     // MARK: - Init -
 
-    private override init() {
+    fileprivate override init() {
         fatalError("Never instantiate this class directly. Use the init(tableView:sections:) initializer.")
     }
 
@@ -53,67 +53,67 @@ public class ComplexSourcery: NSObject, TableController {
 
     // MARK: - Update Data -
 
-    public func updateSections(newSections newSections: [SectionType]) {
+    open func update(sections newSections: [SectionType]) {
         sections = newSections
         tableView?.reloadData()
     }
 
     // MARK: - UITableView Data Source & Delegate -
 
-    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    open func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
 
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].dataCount
     }
 
-    public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return sections[indexPath.section].heightForCellAtIndex(indexPath.row)
+    open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return sections[indexPath.section].heightForCell(atIndex: indexPath.row)
     }
 
-    public func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    open func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sections[section].title
     }
 
-    public func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    open func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         // If we have a header, return its height
         return sections[section].headerType?.staticHeight ?? (sections[section].title != nil ? headerHeight : 0)
     }
 
-    public func tableView(tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+    open func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         // If we have a header, return its height
         return sections[section].headerType?.staticHeight ?? (sections[section].title != nil ? headerHeight : 0)
     }
 
-    public func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    open func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         // If a header is specified - dequeue, configure and return it
         if let type = sections[section].headerType {
             let header = tableView.dequeueHeaderFooterView(type)
-            headerConfigurator?(section: section, header: header, title: sections[section].title)
+            headerConfigurator?(section, header, sections[section].title)
             return header
         }
 
         return nil
     }
 
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let constructor = sections[indexPath.section].customConstructors[indexPath.row] {
-            return constructor(tableView: tableView, index: indexPath.row)
+            return constructor(tableView, indexPath.row)
         }
 
         let type = sections[indexPath.section].cellType
-        let cell = tableView.dequeueCellTypeDefault(type)
-        sections[indexPath.section].configureCell(cell, index: indexPath.row)
+        let cell = tableView.dequeueDefault(cellType: type)
+        sections[indexPath.section].configure(cell: cell, index: indexPath.row)
         return cell
     }
 
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if autoDeselect { tableView.deselectRowAtIndexPath(indexPath, animated: true) }
-        sections[indexPath.section].handleSelection(indexPath.row)
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if autoDeselect { tableView.deselectRow(at: indexPath, animated: true) }
+        sections[indexPath.section].handle(selection: indexPath.row)
     }
 
-    public func scrollViewDidScroll(scrollView: UIScrollView) {
+    open func scrollViewDidScroll(_ scrollView: UIScrollView) {
         delegateProxy?.scrollViewDidScroll(scrollView)
     }
 }
