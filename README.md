@@ -5,10 +5,10 @@
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 ![Plaform](https://img.shields.io/badge/platform-iOS-lightgrey.svg)
 
-Sourcery is a framework that simplifies `UITableView` setup and makes your life easier by not requiring you to write hundreds of lines of code just to setup simple (and complex) table views. It contains multiple classes that can't be used for different purposes, ranging from displaying search results to complex table views consisting of many cells and different cell types. 
+Sourcery is a framework that simplifies `UITableView` setup and makes your life easier by not requiring you to write hundreds of lines of code just to setup simple (and complex) table views. It contains multiple classes that can't be used for different purposes, ranging from displaying search results to complex table views consisting of many cells and different cell types.
 
 ## Why Sourcery?
-There are plenty of other frameworks available, but none like this. Why should you use it? 
+There are plenty of other frameworks available, but none like this. Why should you use it?
 
 * Setup`UITableView`in 10 lines of code? **Yes.**
 * Custom cells with strong typed dequeueing and automatic NIB registration? **Of course.**
@@ -29,7 +29,11 @@ There are plenty of other frameworks available, but none like this. Why should y
 
 ### Carthage
 ~~~
-github "nodes-ios/Sourcery" 
+For Swift 2.2 use:
+github "nodes-ios/Sourcery" ~> 0.2
+
+For Swift 3.0.1+ use:
+github "nodes-ios/Sourcery" ~> 1.0
 ~~~
 
 ## 💻 Usage
@@ -90,7 +94,7 @@ Create the Sections:
 let textSection = Section<String, BasicCell>(title: "Text", data: textDataSource, configurator: { (cell, index, object) in
 	    cell.textLabel?.text = object
 	    }, selectionHandler: nil)
-        
+
 let imageSection = Section<UIImage, ImageCell>(title: "Images", data: imageDataSource, configurator: { (cell, index, object) in
 	    cell.cellImageView.image = object
 	    }, selectionHandler: nil)
@@ -122,7 +126,7 @@ Now your table will have three sections, one with text, one with images, and ano
 
 ####PagedSourcery
 
-`PagedSourcery` can be used for tables that get data from an external API, paginated. It implements a very smooth scrolling experience, avoiding the annoying bouncy scrolling when you reach the bottom, while the next page is loading. 
+`PagedSourcery` can be used for tables that get data from an external API, paginated. It implements a very smooth scrolling experience, avoiding the annoying bouncy scrolling when you reach the bottom, while the next page is loading.
 
 The way to use it is very similar to a `SimpleSourcery`, but `PagedSourcery` also provides an operation queue where you add the operations to fetch the next page of data.
 
@@ -133,20 +137,20 @@ var sourcery: PagedSourcery<Beer, BasicCell>? 		// strong reference to this one
 var beers = []
 ```
 
-```swift 
+```swift
 sourcery = PagedSourcery<Beer, BasicCell>(tableView: tableView, pageSize: 50, pageLoader: { (page, operationQueue, completion) in
             operationQueue.addOperationWithBlock({
-                
+
                 ConnectionManager.fetchBeers(page, completion: { (response) in
-                    
+
                     switch response.result {
                     case .Success(let beerResponse):
                         completion(totalCount: beerResponse.totalResults, data:beerResponse.beers)
                     case .Failure(_):
                         print("error")
-                        
+
                     }
-                    
+
                     })
                 })
             }, configurator: { $0.cell.textLabel?.text = $0.object.name })
@@ -154,7 +158,7 @@ sourcery = PagedSourcery<Beer, BasicCell>(tableView: tableView, pageSize: 50, pa
         sourcery?.preloadMargin = nil
 ```
 
-And that's it. In less than 15 lines of code, you have a UITableView that gets its data from a web API, paginated, with a very smooth scrolling experience. 
+And that's it. In less than 15 lines of code, you have a UITableView that gets its data from a web API, paginated, with a very smooth scrolling experience.
 
 Have a look at the [example project](Sourcery/SourceryExample) or at [the other demo project](https://github.com/mariusc/SourceryDemo).
 
