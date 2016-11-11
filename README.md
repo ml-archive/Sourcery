@@ -22,8 +22,7 @@ There are plenty of other frameworks available, but none like this. Why should y
 
 ## 📝 Requirements
 
-* iOS 8.3+
-* Swift 2.2+
+* iOS 8.0+
 
 ## 📦 Installation
 
