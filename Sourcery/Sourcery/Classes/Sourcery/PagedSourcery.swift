@@ -11,7 +11,7 @@ import PagedArray
 
 open class PagedSourcery<DataType, CellType: TableViewPresentable>: NSObject, TableController {
 
-    public typealias PageLoader = ((_ page: Int, _ operationQueue: OperationQueue, _ completion: ((_ totalCount: Int, _ data: [DataType]) -> Void)) -> Void)
+    public typealias PageLoader = ((_ page: Int, _ operationQueue: OperationQueue, _ completion: @escaping ((_ totalCount: Int, _ data: [DataType]) -> Void)) -> Void)
     public typealias SelectionHandler = ((_ index: Int, _ object: DataType) -> Void)
     public typealias CellConfigurator = ((_ cell: CellType, _ index: Int, _ object: DataType) -> Void)
     public typealias HeaderConfigurator = ((UITableViewHeaderFooterView?) -> Void)
