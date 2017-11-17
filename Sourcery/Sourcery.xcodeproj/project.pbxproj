@@ -252,11 +252,11 @@
 				TargetAttributes = {
 					01DAF1371CCFB138003F7B1B = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 0900;
 					};
 					01DAF1411CCFB138003F7B1B = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 0900;
 					};
 				};
 			};
@@ -446,7 +446,8 @@
 				PRODUCT_NAME = Sourcery;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -466,7 +467,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.Sourcery;
 				PRODUCT_NAME = Sourcery;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -477,7 +479,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks ${SRCROOT}/../Carthage/Build/iOS";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.SourceryTests;
 				PRODUCT_NAME = SourceryTests;
-				SWIFT_VERSION = 3.0.1;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -488,7 +491,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks ${SRCROOT}/../Carthage/Build/iOS";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nodes.SourceryTests;
 				PRODUCT_NAME = SourceryTests;
-				SWIFT_VERSION = 3.0.1;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
