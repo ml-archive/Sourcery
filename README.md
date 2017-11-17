@@ -31,8 +31,11 @@ There are plenty of other frameworks available, but none like this. Why should y
 For Swift 2.2 use:
 github "nodes-ios/Sourcery" ~> 0.2
 
-For Swift 3.0.1+ use:
-github "nodes-ios/Sourcery" ~> 1.0
+For Swift 3.0.1 use:
+github "nodes-ios/Sourcery" == 1.0.2
+
+For Swift 4+ use:
+github "nodes-ios/Sourcery" ~> 1.0.3
 ~~~
 
 ## 💻 Usage
