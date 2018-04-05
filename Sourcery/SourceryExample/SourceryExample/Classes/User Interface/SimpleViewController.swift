@@ -18,16 +18,18 @@ class SimpleViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        sourcery = SimpleSourcery<String, BasicCell>(tableView: tableView, data: data, configurator: { $0.cell.textLabel?.text = $0.object })
+        sourcery = SimpleSourcery<String, BasicCell>(tableView: tableView, data: data, configurator: { (cell, index, object) in
+            cell.textLabel?.text = object
+        })
+//        sourcery = SimpleSourcery<String, BasicCell>(tableView: tableView, data: data, configurator: { $0.cell.textLabel?.text = $0.object })
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         var newData: [String] = (sourcery?.data ?? data)
         newData.append("New row")
-        sourcery?.updateData(newData: newData)
+        sourcery?.update(data: newData)
     }
 }
 

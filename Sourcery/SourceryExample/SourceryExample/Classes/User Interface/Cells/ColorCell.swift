@@ -15,15 +15,14 @@ class ColorCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        colorView.backgroundColor = UIColor.lightGrayColor()
+        colorView.backgroundColor = UIColor.lightGray
         colorView.layer.cornerRadius = 2
-        selectionStyle = .None
+        selectionStyle = .none
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        colorView.backgroundColor = UIColor.lightGrayColor()
-    }
+        colorView.backgroundColor = UIColor.lightGray    }
 
     func populateWithColor(color: UIColor) {
         colorView.backgroundColor = color

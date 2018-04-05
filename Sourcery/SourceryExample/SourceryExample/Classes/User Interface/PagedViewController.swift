@@ -28,22 +28,29 @@ class PagedViewController: UIViewController {
         super.viewDidLoad()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupSourcery()
     }
 
     func setupSourcery() {
-        let totalCount = data.reduce(0, combine: { $0.0 + $0.1.count })
+        let totalCount = data.reduce(0, { value, element in
+            value + element.count
+        })
 
-        sourcery = PagedSourcery<String, BasicCell>(tableView: tableView, pageSize: 3, pageLoader: { [weak self] (page, operationQueue, completion) in
-            operationQueue.addOperationWithBlock({ [weak self] in
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), { [weak self] in
-                    guard let strongSelf = self else { return }
-                    completion(totalCount: totalCount, data: strongSelf.data[page])
-                })
-            })
-            }, configurator: { $0.cell.textLabel?.text = $0.object })
+        sourcery = PagedSourcery<String, BasicCell>(tableView: tableView, pageSize: 3, pageLoader: {
+            [weak self] (page, operationQueue, completion) in
+                operationQueue.addOperation { [weak self] in
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500), execute: {
+                        DispatchQueue.main.async {
+                            guard let strongSelf = self else { return }
+                            completion(totalCount, strongSelf.data[page])
+                        }
+                    })
+                }
+            }, configurator: { (cell, index, object) in
+                cell.textLabel?.text = object
+        })
         sourcery?.preloadMargin = nil
     }
 }
