@@ -98,8 +98,10 @@ open class ComplexSourcery: NSObject, TableController {
     }
 
     open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let constructor = sections[indexPath.section].customConstructors[indexPath.row] {
-            return constructor(tableView, indexPath.row)
+        let customConstructors = sections[indexPath.section].customConstructors
+        if customConstructors.count > indexPath.row {
+            let constructor = customConstructors[indexPath.row]
+            return constructor!(tableView, indexPath.row)
         }
 
         let type = sections[indexPath.section].cellType
