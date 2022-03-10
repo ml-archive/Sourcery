@@ -1,3 +1,6 @@
+### This library has been deprecated and the repo has been archived. 
+### The code is still here and you can still clone it, however the library will not receive any more updates or support.
+
 # 🔮 Sourcery
 
 [![Travis](https://img.shields.io/travis/nodes-ios/Sourcery.svg)](https://travis-ci.org/nodes-ios/Sourcery)
